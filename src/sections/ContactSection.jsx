@@ -47,7 +47,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="py-[100px]" id="contact">
+    <section className="pt-6 pb-[100px]" id="contact">
       <div className="container">
         <SectionTitle title="Get In Touch" />
 

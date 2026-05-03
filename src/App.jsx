@@ -4,11 +4,9 @@ import Preloader from './components/Preloader';
 import Navbar from './sections/Navbar';
 import HeroSection from './sections/HeroSection';
 import AboutSection from './sections/AboutSection';
-import ServicesSection from './sections/ServicesSection';
 import PortfolioSection from './sections/PortfolioSection';
 import SkillsSection from './sections/SkillsSection';
 import ContactSection from './sections/ContactSection';
-import Footer from './sections/Footer';
 
 const App = () => {
   const [preloaded, setPreloaded] = useState(false);
@@ -24,11 +22,9 @@ const App = () => {
       <Navbar />
       <HeroSection />
       <AboutSection />
-      <ServicesSection />
       <SkillsSection />
       <PortfolioSection />
       <ContactSection />
-      <Footer />
       <Toaster position="bottom-right" />
     </div>
   );

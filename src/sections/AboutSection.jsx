@@ -1,65 +1,34 @@
 import SectionTitle from '../components/SectionTitle';
 import SocialIcons from '../components/SocialIcons';
+import CircularGallery from '../components/CircularGallery';
 
 const AboutSection = () => (
-  <section className="pt-[80px] lg:pt-[100px] pb-[60px] lg:pb-[125px]" id="about">
+  <section className="bg-white pt-16 pb-[60px] lg:pb-[125px]" id="about">
     <div className="container">
-      {/* Mobile title */}
-      <SectionTitle title="About Me" className="lg:hidden" />
-
+      {/* Bio section */}
       <div className="md:grid grid-cols-12 items-center">
-        {/* Left: photo */}
-        <div className="col-span-4 sm:text-center md:text-left">
-          <div className="inline-block md:block leading-none drop-shadow-thumb relative sm:before:absolute sm:before:bottom-[-20px] lg:before:bottom-[-45px] sm:before:right-[-25px] sm:before:border-2 sm:before:border-white/20 sm:before:h-full sm:before:w-[calc(100%-20px)] sm:before:rounded-br-3xl">
-            <img
-              src="https://placehold.co/350x470/1a1a2e/ffffff?text=Suresh+Jakhar"
-              alt="Suresh Jakhar"
-              width={350}
-              height={470}
-              className="rounded-md"
-            />
-          </div>
-        </div>
-
-        {/* Right: bio */}
-        <div className="col-start-6 col-end-13">
+        {/* Centered bio */}
+        <div className="col-span-12 lg:col-span-10 lg:col-start-2">
           <div className="bio mt-5 sm:mt-10 md:mt-0">
             {/* Desktop title */}
             <SectionTitle title="About Me" className="hidden lg:block" />
 
-            <div className="bio-text space-y-4 text-gray-700 leading-relaxed">
+            <div className="bio-text space-y-4 text-gray-700 leading-relaxed text-center lg:text-left">
               <p>
-                I'm a Software Engineer and AWS Certified Machine Learning Engineer with hands-on
-                experience building full-stack applications and ML-based systems. Currently pursuing
-                a B.Tech in Computer Science at Bennett University (Expected August 2027).
+                As a Software Engineer, my interests include the development of highly scalable web applications and machine learning-based software systems. My skills span from designing highly optimized back-end APIs and databases to developing front-end UIs
               </p>
               <p>
-                I enjoy working across the stack — from designing efficient REST APIs and database
-                schemas to building intuitive React frontends. I have a particular interest in search
-                systems, retrieval-augmented generation (RAG), and data-driven applications.
+                I am currently enrolled in B.Tech in Computer Science Engineering and have experience with cutting-edge web technologies and application-based software solutions.
               </p>
-              <p>
-                I secured First Rank in Senior Secondary at the District level with 98.40%, and hold
-                certifications from AWS and IBM in machine learning and data science.
-              </p>
-
-              {/* Education highlights */}
-              <div className="mt-4 space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="font-semibold text-gray-800">B.Tech, Computer Science</span>
-                  <span className="text-gray-500">Bennett University · Expected Aug 2027</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="font-semibold text-gray-800">Senior Secondary (XII)</span>
-                  <span className="text-gray-500">JPP Jain International Sr Sec School · 98.40%</span>
-                </div>
-              </div>
             </div>
-
-            <SocialIcons className="mt-10" />
           </div>
         </div>
       </div>
+    </div>
+
+    {/* Full-width Circular Gallery */}
+    <div className="-mt-8 relative w-full h-[300px] md:h-[350px] lg:h-[400px] overflow-hidden">
+      <CircularGallery bend={2} textColor="#1a1a1a" borderRadius={0.05} scrollEase={0.02} />
     </div>
   </section>
 );

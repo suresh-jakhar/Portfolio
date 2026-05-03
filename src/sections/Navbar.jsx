@@ -83,7 +83,7 @@ const Navbar = () => {
                   ) : (
                     <Link
                       smooth
-                      duration={300}
+                      duration={800}
                       offset={-70}
                       to={link.href}
                       className={`${NAV_LINK_CLS} ${

@@ -23,7 +23,7 @@ const PortfolioSection = () => {
   };
 
   return (
-    <section className="bg-gray-50 relative pt-[100px] pb-[100px] lg:pb-[200px]" id="portfolio">
+    <section className="bg-gray-50 relative pt-6 pb-[100px] lg:pb-[200px]" id="portfolio">
       <div className="container">
         <SectionTitle title="Projects" />
 

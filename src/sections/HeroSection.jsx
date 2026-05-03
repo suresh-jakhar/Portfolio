@@ -5,7 +5,7 @@ const HeroSection = () => (
   <section
     id="hero"
     style={{ backgroundImage: `url(${heroImg})` }}
-    className="relative bg-cover bg-no-repeat bg-[center_top] h-[300px] sm:h-[450px] md:h-[500px] lg:h-[600px] xl:h-[800px] flex items-center"
+    className="relative bg-cover bg-no-repeat bg-[center_top] h-screen flex items-center"
   >
     <div className="container flex justify-end">
       <div className="mt-8 font-light text-right pr-4 md:pr-10">
@@ -17,7 +17,7 @@ const HeroSection = () => (
 </h2>
       </div>
     </div>
-    <WaveDivider className="hidden md:block" fillColor="#ffffff" />
+    <WaveDivider fillColor="#ffffff" />
   </section>
 );
 

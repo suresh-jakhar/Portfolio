@@ -40,7 +40,7 @@ const awards = [
 ];
 
 const SkillsSection = () => (
-  <section className="py-[80px] lg:py-[100px] bg-white" id="skills">
+  <section className="pt-6 pb-[80px] bg-white" id="skills">
     <div className="container">
       <SectionTitle title="Skills &amp; Awards" />
 
