@@ -19,14 +19,14 @@ const App = () => {
   }, []);
 
   return (
-    <div className="rokstar">
+    <div className="portfolio-root">
       <Preloader preloaded={preloaded} />
       <Navbar />
       <HeroSection />
       <AboutSection />
       <ServicesSection />
-      <PortfolioSection />
       <SkillsSection />
+      <PortfolioSection />
       <ContactSection />
       <Footer />
       <Toaster position="bottom-right" />

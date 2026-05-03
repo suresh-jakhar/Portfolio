@@ -5,12 +5,8 @@ import { animateScroll as scroll } from 'react-scroll';
 const Footer = () => (
   <footer className="bg-gray-50 pt-10 md:pt-14 lg:pt-5 pb-5 relative">
     <div className="container">
-      <div className="text-center lg:text-left lg:flex justify-between items-center">
-        {/* Logo text */}
-        <a href="/" className="leading-none inline-block">
-          <span className="font-heading text-dark text-xl tracking-widest">PORTFOLIO</span>
-        </a>
-        <p className="mt-3 lg:mt-0">
+      <div className="text-center">
+        <p>
           © Suresh Jakhar {new Date().getFullYear()} · Built with{' '}
           <FaHeart className="inline text-red-600" /> in React
         </p>

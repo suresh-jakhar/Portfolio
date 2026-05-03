@@ -20,28 +20,6 @@
     @apply max-w-[1140px] mx-auto px-4;
   }
 
-  .section-title {
-    @apply text-3xl font-heading tracking-normal text-dark pb-4 relative;
-  }
-
-  .section-title::before {
-    @apply absolute left-0 bottom-0 h-[5px] w-[55px] bg-dark;
-    content: '';
-  }
-
-  .section-title::after {
-    @apply absolute left-0 bottom-[2px] h-[1px] w-[255px] bg-dark;
-    content: '';
-  }
-
-  .nav-link {
-    @apply block text-white font-medium text-sm relative cursor-pointer;
-  }
-
-  .nav-link-hover {
-    @apply after:duration-300 after:content-[attr(data-hover)] after:absolute after:left-1/2 after:top-3/4 after:opacity-0 after:-translate-x-1/2 hover:after:top-1/2 hover:after:opacity-100;
-  }
-
   .input-field {
     @apply text-[13px] border-b border-neutral-200 outline-none w-full duration-300 focus:border-b-black h-8;
   }

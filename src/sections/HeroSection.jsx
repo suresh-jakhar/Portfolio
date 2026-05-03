@@ -13,8 +13,8 @@ const HeroSection = () => (
           I'M SURESH JAKHAR
         </h1>
         <h2 className="text-white font-light text-md sm:text-lg tracking-[0.25rem] mt-2 sm:mt-4">
-          SOFTWARE ENGINEER &amp; ML ENGINEER
-        </h2>
+  SOFTWARE ENGINEER | AI/ML & WEB
+</h2>
       </div>
     </div>
     <WaveDivider className="hidden md:block" fillColor="#ffffff" />
