@@ -11,8 +11,8 @@ const Footer = () => (
           <span className="font-heading text-dark text-xl tracking-widest">PORTFOLIO</span>
         </a>
         <p className="mt-3 lg:mt-0">
-          © Rokstar {new Date().getFullYear()}, Made with{' '}
-          <FaHeart className="inline text-red-600" /> By Divergent Studio.
+          © Suresh Jakhar {new Date().getFullYear()} · Built with{' '}
+          <FaHeart className="inline text-red-600" /> in React
         </p>
       </div>
     </div>

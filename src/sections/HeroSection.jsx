@@ -10,10 +10,10 @@ const HeroSection = () => (
     <div className="container flex justify-end">
       <div className="mt-8 font-light text-right pr-4 md:pr-10">
         <h1 className="text-white font-light text-3xl sm:text-[45px] md:text-[55px] leading-none">
-          I'M LUCY DOE
+          I'M SURESH JAKHAR
         </h1>
         <h2 className="text-white font-light text-md sm:text-lg tracking-[0.25rem] mt-2 sm:mt-4">
-          WEB DEVELOPER
+          SOFTWARE ENGINEER &amp; ML ENGINEER
         </h2>
       </div>
     </div>

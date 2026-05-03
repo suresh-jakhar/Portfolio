@@ -55,13 +55,26 @@ const ContactSection = () => {
           {/* Contact info */}
           <div className="col-span-5">
             <div className="font-medium space-y-2">
-              <address className="not-italic">
-                100 Main St, Blacktown NSW 2148,
-                <br />
-                Australia
-              </address>
-              <p>support@bold.com, info@youremail.com</p>
-              <p>+256-4516-556, +(257) 56812749</p>
+              <p>
+                <a href="mailto:gettingsuresh@gmail.com" className="hover:underline">
+                  gettingsuresh@gmail.com
+                </a>
+              </p>
+              <p>
+                <a href="tel:+917878122792" className="hover:underline">
+                  +91 7878122792
+                </a>
+              </p>
+              <p>
+                <a
+                  href="https://www.linkedin.com/in/sureshjakhar/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:underline"
+                >
+                  linkedin.com/in/sureshjakhar
+                </a>
+              </p>
             </div>
             <SocialIcons className="mt-6 md:mt-10" />
           </div>

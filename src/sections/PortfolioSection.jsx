@@ -25,7 +25,7 @@ const PortfolioSection = () => {
   return (
     <section className="bg-gray-50 relative pt-[100px] pb-[100px] lg:pb-[200px]" id="portfolio">
       <div className="container">
-        <SectionTitle title="Portfolios" />
+        <SectionTitle title="Projects" />
 
         {/* Filter buttons */}
         <nav className="mb-10 space-x-5">
@@ -49,7 +49,7 @@ const PortfolioSection = () => {
         </nav>
 
         {/* Grid */}
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-7">
+        <div className="grid sm:grid-cols-2 gap-7">
           {filtered.map((project) => (
             <PortfolioCard key={project.id} {...project} />
           ))}
