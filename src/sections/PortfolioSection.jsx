@@ -1,62 +1,154 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import projects from '../data/projects';
 import PortfolioCard from '../components/PortfolioCard';
 import SectionTitle from '../components/SectionTitle';
-import WaveDivider from '../components/WaveDivider';
-
-const FILTER_BTN =
-  'text-black capitalize font-medium relative after:absolute after:h-[6px] after:w-[6px] after:rounded-full after:bg-slate-700 after:left-1/2 after:-translate-x-1/2 after:-bottom-1';
 
 const PortfolioSection = () => {
   const [categories, setCategories] = useState([]);
   const [activeFilter, setActiveFilter] = useState('*');
   const [filtered, setFiltered] = useState(projects);
+  
+  // State for smooth tab position
+  const [position, setPosition] = useState({
+    left: 0,
+    width: 0,
+    opacity: 0,
+  });
+
+  const tabsRef = useRef([]);
 
   useEffect(() => {
     const allCats = [...new Set(projects.flatMap((p) => p.categories))];
     setCategories(allCats);
   }, []);
 
-  const handleFilter = (cat) => {
+  const handleFilter = (cat, index) => {
     setActiveFilter(cat);
     setFiltered(cat === '*' ? projects : projects.filter((p) => p.categories.includes(cat)));
+    
+    // Update cursor position immediately on click
+    const selectedTab = tabsRef.current[index];
+    if (selectedTab) {
+      const { width } = selectedTab.getBoundingClientRect();
+      setPosition({
+        left: selectedTab.offsetLeft,
+        width,
+        opacity: 1,
+      });
+    }
   };
 
+  // Sync cursor on initial load or category change
+  useEffect(() => {
+    const allTabs = ['All', ...categories];
+    const currentIndex = activeFilter === '*' ? 0 : allTabs.indexOf(activeFilter);
+    const selectedTab = tabsRef.current[currentIndex];
+    
+    if (selectedTab) {
+      const { width } = selectedTab.getBoundingClientRect();
+      setPosition({
+        left: selectedTab.offsetLeft,
+        width,
+        opacity: 1,
+      });
+    }
+  }, [categories, activeFilter]);
+
   return (
-    <section className="bg-gray-50 relative pt-6 pb-[100px] lg:pb-[200px]" id="portfolio">
+    <section className="bg-[#0a0a0a] pt-8 pb-10 lg:pt-12 lg:pb-16" id="portfolio">
       <div className="container">
-        <SectionTitle title="Projects" />
+        <SectionTitle title="Projects" className="mb-2" isLight={true} />
 
-        {/* Filter buttons */}
-        <nav className="mb-10 space-x-5">
-          <button
-            data-filter="*"
-            onClick={() => handleFilter('*')}
-            className={`${FILTER_BTN} ${activeFilter === '*' ? 'after:opacity-100' : 'after:opacity-0'}`}
+        {/* Smooth Sliding Filter Tabs */}
+        <div className="mb-6 flex justify-center lg:justify-start">
+          <ul
+            onMouseLeave={() => {
+              // Reset to active filter position
+              const allTabs = ['All', ...categories];
+              const currentIndex = activeFilter === '*' ? 0 : allTabs.indexOf(activeFilter);
+              const selectedTab = tabsRef.current[currentIndex];
+              if (selectedTab) {
+                const { width } = selectedTab.getBoundingClientRect();
+                setPosition({
+                  left: selectedTab.offsetLeft,
+                  width,
+                  opacity: 1,
+                });
+              }
+            }}
+            className="relative flex w-fit rounded-full border border-white/10 bg-neutral-900/50 p-1 shadow-sm"
           >
-            All
-          </button>
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              data-filter={cat}
-              onClick={() => handleFilter(cat)}
-              className={`${FILTER_BTN} ${activeFilter === cat ? 'after:opacity-100' : 'after:opacity-0'}`}
+            {/* "All" Tab */}
+            <Tab
+              ref={(el) => (tabsRef.current[0] = el)}
+              setPosition={setPosition}
+              onClick={() => handleFilter('*', 0)}
+              isActive={activeFilter === '*'}
             >
-              {cat}
-            </button>
-          ))}
-        </nav>
+              All
+            </Tab>
 
-        {/* Grid */}
-        <div className="grid sm:grid-cols-2 gap-7">
+            {/* Category Tabs */}
+            {categories.map((cat, i) => (
+              <Tab
+                key={cat}
+                ref={(el) => (tabsRef.current[i + 1] = el)}
+                setPosition={setPosition}
+                onClick={() => handleFilter(cat, i + 1)}
+                isActive={activeFilter === cat}
+              >
+                {cat}
+              </Tab>
+            ))}
+
+            <Cursor position={position} />
+          </ul>
+        </div>
+
+        {/* Expected Grid: 3 columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {filtered.map((project) => (
             <PortfolioCard key={project.id} {...project} />
           ))}
         </div>
       </div>
-      <WaveDivider fillColor="#ffffff" />
     </section>
+  );
+};
+
+const Tab = React.forwardRef(({ children, setPosition, onClick, isActive }, ref) => {
+  return (
+    <li
+      ref={ref}
+      onClick={onClick}
+      onMouseEnter={() => {
+        if (!ref?.current) return;
+        const { width } = ref.current.getBoundingClientRect();
+        setPosition({
+          left: ref.current.offsetLeft,
+          width,
+          opacity: 1,
+        });
+      }}
+      className={`relative z-10 block cursor-pointer px-4 py-2 text-[11px] font-black uppercase tracking-widest transition-colors duration-300 ${
+        isActive ? 'text-white mix-blend-difference' : 'text-gray-400'
+      } md:px-6`}
+    >
+      {children}
+    </li>
+  );
+});
+
+const Cursor = ({ position }) => {
+  return (
+    <motion.li
+      animate={{
+        ...position,
+      }}
+      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+      className="absolute z-0 h-8 rounded-full bg-white shadow-md md:h-[32px]"
+    />
   );
 };
 

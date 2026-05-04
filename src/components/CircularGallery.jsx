@@ -37,9 +37,10 @@ function createCardTexture(gl, title, description, icon = '🚀', color = 'white
   // 1. Background
   const gradient = context.createLinearGradient(0, 0, 0, h);
   gradient.addColorStop(0, '#323232');
-  gradient.addColorStop(1, '#424242ff');
+  gradient.addColorStop(1, '#3f3f3fff');
   context.fillStyle = gradient;
-  context.fillRect(0, 0, w, h);  // 2. Icon Circle
+  context.fillRect(0, 0, w, h);
+  // 2. Icon Circle
   const centerX = w / 2;
   const iconY = 130 * scale;
   

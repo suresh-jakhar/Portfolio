@@ -12,7 +12,7 @@ import Problem from '../components/icons/Problem';
 import WorkSatisfaction from '../components/icons/WorkSatisfaction';
 
 const AboutSection = () => (
-  <section className="bg-white pt-16 pb-[60px] lg:pb-[125px]" id="about">
+  <section className="bg-[#0a0a0a] pt-4 pb-0 text-white" id="about">
     <div className="container">
       {/* Bio section */}
       <div className="md:grid grid-cols-12 items-center">
@@ -20,9 +20,9 @@ const AboutSection = () => (
         <div className="col-span-12 lg:col-span-10 lg:col-start-2">
           <div className="bio mt-5 sm:mt-10 md:mt-0">
             {/* Desktop title */}
-            <SectionTitle title="About Me" className="hidden lg:block" />
+            <SectionTitle title="About Me" className="hidden lg:block" isLight={true} />
 
-            <div className="bio-text space-y-4 text-gray-700 leading-relaxed text-center lg:text-left">
+            <div className="bio-text space-y-4 text-gray-300 leading-relaxed text-center lg:text-left">
               <p>
                 As a Software Engineer, my interests include the development of highly scalable web applications and machine learning-based software systems. My skills span from designing highly optimized back-end APIs and databases to developing front-end UIs
               </p>

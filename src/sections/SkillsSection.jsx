@@ -1,5 +1,20 @@
 import SectionTitle from '../components/SectionTitle';
-import { BsAwardFill } from 'react-icons/bs';
+import { FaGraduationCap } from 'react-icons/fa';
+
+const education = [
+  {
+    degree: 'B.Tech in Computer Science Engineering',
+    institution: 'Your University Name',
+    duration: '2021 — 2025',
+    status: 'Current',
+  },
+  {
+    degree: 'Senior Secondary Education',
+    institution: 'District Level Schooling',
+    duration: '2019 — 2021',
+    status: 'Completed (District Rank 1)',
+  },
+];
 
 const skills = [
   {
@@ -24,74 +39,64 @@ const skills = [
   },
 ];
 
-const awards = [
-  {
-    title: 'AWS Certified Machine Learning Engineer — Associate',
-    link: 'https://www.credly.com/badges/b60c0951-deaa-4551-ba0b-9d92211d5aff/public_url',
-  },
-  {
-    title: 'IBM Statistics for Data Science with Python',
-    link: 'https://www.credly.com/badges/fecb0725-c78b-4588-a66c-084c566877f3/public_url',
-  },
-  {
-    title: 'First Rank in Senior Secondary at District Level',
-    link: null,
-  },
-];
-
-const SkillsSection = () => (
-  <section className="pt-6 pb-[80px] bg-white" id="skills">
+const EducationSkillsSection = () => (
+  <section className="pt-6 pb-20 bg-[#0a0a0a]" id="education">
     <div className="container">
-      <SectionTitle title="Skills &amp; Awards" />
+      <SectionTitle title="Education & Skills" isLight={true} />
 
-      {/* Skills Grid */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-        {skills.map((group) => (
-          <div key={group.category} className="bg-gray-50 rounded-xl p-5 shadow-sm border border-gray-100">
-            <h3 className="text-sm font-bold text-gray-800 uppercase tracking-widest mb-3">
-              {group.category}
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {group.items.map((item) => (
-                <span
-                  key={item}
-                  className={`text-xs font-medium px-2.5 py-1 rounded-full border ${group.color}`}
-                >
-                  {item}
-                </span>
-              ))}
+      {/* Education Section */}
+      <div className="mb-20">
+        <div className="h-4 mb-8" />
+        <div className="grid md:grid-cols-2 gap-8">
+          {education.map((edu) => (
+            <div key={edu.degree} className="flex gap-6 p-6 bg-[#1a1a1a] rounded-xl border border-white/10 shadow-sm transition-transform hover:-translate-y-1">
+              <div className="bg-white/5 p-4 rounded-full h-fit border border-white/10">
+                <FaGraduationCap className="text-2xl text-white/70" />
+              </div>
+              <div>
+                <h4 className="text-xl font-bold text-white">{edu.degree}</h4>
+                <p className="text-gray-400 font-medium">{edu.institution}</p>
+                <div className="mt-3 flex items-center gap-4">
+                  <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                    {edu.duration}
+                  </span>
+                  <span className="px-2 py-0.5 bg-white/10 text-[10px] font-black uppercase text-gray-300 rounded border border-white/5">
+                    {edu.status}
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      {/* Awards */}
-      <div className="mt-12">
-        <h3 className="text-sm font-bold text-gray-800 uppercase tracking-widest mb-4">
-          Awards &amp; Certifications
+      {/* Skills Section */}
+      <div>
+        <h3 className="text-sm font-bold text-gray-500 uppercase tracking-[0.3em] mb-8">
+          Technical Expertise
         </h3>
-        <ul className="space-y-3">
-          {awards.map((award) => (
-            <li key={award.title} className="flex items-start gap-3">
-              <BsAwardFill className="mt-0.5 text-amber-500 shrink-0 text-lg" />
-              {award.link ? (
-                <a
-                  href={award.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-gray-700 hover:text-black hover:underline transition-colors"
-                >
-                  {award.title}
-                </a>
-              ) : (
-                <span className="text-gray-700">{award.title}</span>
-              )}
-            </li>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {skills.map((group) => (
+            <div key={group.category} className="bg-[#1a1a1a] rounded-xl p-6 shadow-sm border border-white/10 transition-all hover:shadow-md">
+              <h3 className="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-4">
+                {group.category}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <span
+                    key={item}
+                    className={`text-xs font-bold px-3 py-1.5 rounded-md border bg-white/5 text-white border-white/10 hover:bg-white/10 transition-colors`}
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   </section>
 );
 
-export default SkillsSection;
+export default EducationSkillsSection;

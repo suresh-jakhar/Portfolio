@@ -17,7 +17,7 @@ const HeroSection = () => (
 </h2>
       </div>
     </div>
-    <WaveDivider fillColor="#ffffff" />
+    <WaveDivider fillColor="#0a0a0a" showStroke={false} />
   </section>
 );
 
