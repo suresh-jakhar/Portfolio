@@ -22,74 +22,134 @@ function autoBind(instance) {
   });
 }
 
-function createTextTexture(gl, text, font = 'bold 30px monospace', color = 'black') {
+function createCardTexture(gl, title, description, icon = '🚀', color = 'white') {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
-  context.font = font;
-  const metrics = context.measureText(text);
-  const textWidth = Math.ceil(metrics.width);
-  const textHeight = Math.ceil(parseInt(font, 10) * 1.2);
-  canvas.width = textWidth + 20;
-  canvas.height = textHeight + 20;
-  context.font = font;
-  context.fillStyle = color;
-  context.textBaseline = 'middle';
+  
+  // Double resolution for sharpness (Retina/High-DPI)
+  const w = 575 * 2;
+  const h = 770 * 2;
+  canvas.width = w;
+  canvas.height = h;
+
+  const scale = 2; // Drawing scale factor
+
+  // 1. Background
+  const gradient = context.createLinearGradient(0, 0, 0, h);
+  gradient.addColorStop(0, '#323232');
+  gradient.addColorStop(1, '#424242ff');
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, w, h);  // 2. Icon Circle
+  const centerX = w / 2;
+  const iconY = 130 * scale;
+  
+  // Outer rings
+  context.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+  context.lineWidth = 1 * scale;
+  context.beginPath();
+  context.arc(centerX, iconY, 80 * scale, 0, Math.PI * 2);
+  context.stroke();
+  
+  context.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+  context.beginPath();
+  context.arc(centerX, iconY, 90 * scale, 0, Math.PI * 2);
+  context.stroke();
+
+  // Inner background
+  context.fillStyle = 'rgba(255, 255, 255, 0.05)';
+  context.beginPath();
+  context.arc(centerX, iconY, 75 * scale, 0, Math.PI * 2);
+  context.fill();
+
   context.textAlign = 'center';
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  context.fillText(text, canvas.width / 2, canvas.height / 2);
-  const texture = new Texture(gl, { generateMipmaps: false });
+  context.textBaseline = 'middle';
+
+  // Icon handling (Emoji or SVG component with .path)
+  const isSvgIcon = icon && (typeof icon === 'object' || typeof icon === 'function') && icon.path;
+
+  if (isSvgIcon) {
+    // Render SVG path
+    const path = new Path2D(icon.path);
+    const vb = icon.viewBox ? icon.viewBox.split(' ').map(Number) : [0, 0, 64, 64];
+    const vbW = vb[2];
+    const vbH = vb[3];
+    
+    context.save();
+    context.translate(centerX, iconY);
+    // Scale icon to fit within the circle (target size ~90px)
+    const iconScale = (90 * scale) / Math.max(vbW, vbH);
+    context.scale(iconScale, iconScale);
+    context.translate(-vbW / 2, -vbH / 2);
+    
+    if (icon.isStroke) {
+      context.strokeStyle = 'white';
+      context.lineWidth = (icon.strokeWidth || 2) * scale;
+      context.lineCap = 'round';
+      context.lineJoin = 'round';
+      context.stroke(path);
+    } else {
+      context.fillStyle = 'white';
+      context.fill(path);
+    }
+    context.restore();
+  } else {
+    // Icon text (emoji or single char)
+    context.font = `${80 * scale}px serif`;
+    context.fillStyle = 'white';
+    context.fillText(icon || '🚀', centerX, iconY);
+  }
+
+  // 3. Heading
+  context.font = `bold ${52 * scale}px Figtree, sans-serif`;
+  context.fillStyle = 'white';
+  context.fillText(title, centerX, 280 * scale);
+
+  // 4. Description
+  context.font = `${40 * scale}px Figtree, sans-serif`;
+  context.fillStyle = 'rgba(255, 255, 255, 0.9)';
+  const lines = Array.isArray(description) ? description : [description];
+  lines.forEach((line, i) => {
+    context.fillText(line, centerX, (375 * scale) + (i * 55 * scale));
+  });
+
+  // 5. Separator line
+  const lineY = 580 * scale;
+  const lineW = 150 * scale;
+  const lineGradient = context.createLinearGradient(centerX - lineW, 0, centerX + lineW, 0);
+  lineGradient.addColorStop(0, 'rgba(255, 255, 255, 0)');
+  lineGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.5)');
+  lineGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+  context.fillStyle = lineGradient;
+  context.fillRect(centerX - lineW, lineY, lineW * 2, 2 * scale);
+
+  // 6. Dots
+  const dotY = 630 * scale;
+  const dotSpacing = 25 * scale;
+  [ -1, 0, 1 ].forEach(offset => {
+    context.fillStyle = offset === 0 ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.2)';
+    context.beginPath();
+    context.arc(centerX + (offset * dotSpacing), dotY, 4 * scale, 0, Math.PI * 2);
+    context.fill();
+  });
+
+  const texture = new Texture(gl, { 
+    generateMipmaps: true,
+    minFilter: gl.LINEAR_MIPMAP_LINEAR,
+    magFilter: gl.LINEAR
+  });
+  
+  // Enable anisotropic filtering if possible for sharp tilted text
+  const ext = gl.getExtension('EXT_texture_filter_anisotropic');
+  if (ext) {
+    const max = gl.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT);
+    texture.anisotropy = max;
+  }
+
   texture.image = canvas;
   return { texture, width: canvas.width, height: canvas.height };
 }
 
-class Title {
-  constructor({ gl, plane, renderer, text, textColor = '#545050', font = '30px sans-serif' }) {
-    autoBind(this);
-    this.gl = gl;
-    this.plane = plane;
-    this.renderer = renderer;
-    this.text = text;
-    this.textColor = textColor;
-    this.font = font;
-    this.createMesh();
-  }
-  createMesh() {
-    const { texture, width, height } = createTextTexture(this.gl, this.text, this.font, this.textColor);
-    const geometry = new Plane(this.gl);
-    const program = new Program(this.gl, {
-      vertex: `
-        attribute vec3 position;
-        attribute vec2 uv;
-        uniform mat4 modelViewMatrix;
-        uniform mat4 projectionMatrix;
-        varying vec2 vUv;
-        void main() {
-          vUv = uv;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragment: `
-        precision highp float;
-        uniform sampler2D tMap;
-        varying vec2 vUv;
-        void main() {
-          vec4 color = texture2D(tMap, vUv);
-          if (color.a < 0.1) discard;
-          gl_FragColor = color;
-        }
-      `,
-      uniforms: { tMap: { value: texture } },
-      transparent: true
-    });
-    this.mesh = new Mesh(this.gl, { geometry, program });
-    const aspect = width / height;
-    const textHeight = this.plane.scale.y * 0.15;
-    const textWidth = textHeight * aspect;
-    this.mesh.scale.set(textWidth, textHeight, 1);
-    this.mesh.position.y = -this.plane.scale.y * 0.5 - textHeight * 0.5 - 0.05;
-    this.mesh.setParent(this.plane);
-  }
-}
+
 
 class Media {
   constructor({
@@ -106,7 +166,9 @@ class Media {
     bend,
     textColor,
     borderRadius = 0,
-    font
+    font,
+    description,
+    icon
   }) {
     this.extra = 0;
     this.geometry = geometry;
@@ -123,15 +185,14 @@ class Media {
     this.textColor = textColor;
     this.borderRadius = borderRadius;
     this.font = font;
+    this.description = description;
+    this.icon = icon;
     this.createShader();
     this.createMesh();
-    this.createTitle();
     this.onResize();
   }
   createShader() {
-    const texture = new Texture(this.gl, {
-      generateMipmaps: true
-    });
+    const { texture } = createCardTexture(this.gl, this.text, this.description, this.icon);
     this.program = new Program(this.gl, {
       depthTest: false,
       depthWrite: false,
@@ -147,7 +208,11 @@ class Media {
         void main() {
           vUv = uv;
           vec3 p = position;
-          p.z = (sin(p.x * 4.0 + uTime) * 1.5 + cos(p.y * 2.0 + uTime) * 1.5) * (0.1 + uSpeed * 0.5);
+          
+          // Progressive wave: stronger at bottom, very subtle at top to keep text sharp
+          float waveStrength = smoothstep(0.8, 0.2, uv.y) * (0.1 + uSpeed * 0.5);
+          p.z = (sin(p.x * 4.0 + uTime) * 1.5 + cos(p.y * 2.0 + uTime) * 1.5) * waveStrength;
+          
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
         }
       `,
@@ -165,6 +230,7 @@ class Media {
         }
         
         void main() {
+          // Aspect ratio correction to prevent stretching
           vec2 ratio = vec2(
             min((uPlaneSizes.x / uPlaneSizes.y) / (uImageSizes.x / uImageSizes.y), 1.0),
             min((uPlaneSizes.y / uPlaneSizes.x) / (uImageSizes.y / uImageSizes.x), 1.0)
@@ -173,6 +239,7 @@ class Media {
             vUv.x * ratio.x + (1.0 - ratio.x) * 0.5,
             vUv.y * ratio.y + (1.0 - ratio.y) * 0.5
           );
+          
           vec4 color = texture2D(tMap, uv);
           
           float d = roundedBoxSDF(vUv - 0.5, vec2(0.5 - uBorderRadius), uBorderRadius);
@@ -187,20 +254,13 @@ class Media {
       uniforms: {
         tMap: { value: texture },
         uPlaneSizes: { value: [0, 0] },
-        uImageSizes: { value: [0, 0] },
+        uImageSizes: { value: [575 * 2, 770 * 2] },
         uSpeed: { value: 0 },
         uTime: { value: 100 * Math.random() },
         uBorderRadius: { value: this.borderRadius }
       },
       transparent: true
     });
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.src = this.image;
-    img.onload = () => {
-      texture.image = img;
-      this.program.uniforms.uImageSizes.value = [img.naturalWidth, img.naturalHeight];
-    };
   }
   createMesh() {
     this.plane = new Mesh(this.gl, {
@@ -208,16 +268,6 @@ class Media {
       program: this.program
     });
     this.plane.setParent(this.scene);
-  }
-  createTitle() {
-    this.title = new Title({
-      gl: this.gl,
-      plane: this.plane,
-      renderer: this.renderer,
-      text: this.text,
-      textColor: this.textColor,
-      fontFamily: this.font
-    });
   }
   update(scroll, direction) {
     this.plane.position.x = this.x - scroll.current - this.extra;
@@ -244,7 +294,7 @@ class Media {
     }
 
     this.speed = scroll.current - scroll.last;
-    this.program.uniforms.uTime.value += 0.04;
+    this.program.uniforms.uTime.value += 0.025;
     this.program.uniforms.uSpeed.value = this.speed;
 
     const planeOffset = this.plane.scale.x / 2;
@@ -269,8 +319,8 @@ class Media {
       }
     }
     this.scale = this.screen.height / 1500;
-    this.plane.scale.y = (this.viewport.height * (600 * this.scale)) / this.screen.height;
-    this.plane.scale.x = (this.viewport.width * (450 * this.scale)) / this.screen.width;
+    this.plane.scale.y = (this.viewport.height * (770 * this.scale)) / this.screen.height;
+    this.plane.scale.x = (this.viewport.width * (575 * this.scale)) / this.screen.width;
     this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y];
     this.padding = 2;
     this.width = this.plane.scale.x + this.padding;
@@ -326,8 +376,8 @@ class App {
   }
   createGeometry() {
     this.planeGeometry = new Plane(this.gl, {
-      heightSegments: 50,
-      widthSegments: 100
+      heightSegments: 30,
+      widthSegments: 20
     });
   }
   createMedias(items, bend = 1, textColor, borderRadius, font) {
@@ -340,10 +390,7 @@ class App {
       { image: `https://picsum.photos/seed/16/800/600?grayscale`, text: 'Train Track' },
       { image: `https://picsum.photos/seed/17/800/600?grayscale`, text: 'Santorini' },
       { image: `https://picsum.photos/seed/8/800/600?grayscale`, text: 'Blurry Lights' },
-      { image: `https://picsum.photos/seed/9/800/600?grayscale`, text: 'New York' },
-      { image: `https://picsum.photos/seed/10/800/600?grayscale`, text: 'Good Boy' },
-      { image: `https://picsum.photos/seed/21/800/600?grayscale`, text: 'Coastline' },
-      { image: `https://picsum.photos/seed/12/800/600?grayscale`, text: 'Palm Trees' }
+      { image: `https://picsum.photos/seed/9/800/600?grayscale`, text: 'New York' }
     ];
     const galleryItems = items && items.length ? items : defaultItems;
     this.mediasImages = galleryItems.concat(galleryItems);
@@ -362,7 +409,9 @@ class App {
         bend,
         textColor,
         borderRadius,
-        font
+        font,
+        description: data.description,
+        icon: data.icon
       });
     });
   }

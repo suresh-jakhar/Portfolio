@@ -1,6 +1,15 @@
 import SectionTitle from '../components/SectionTitle';
 import SocialIcons from '../components/SocialIcons';
 import CircularGallery from '../components/CircularGallery';
+import Hammer from '../components/icons/Hammer';
+import MindSpace from '../components/icons/MindSpace';
+import MindMap from '../components/icons/MindMap';
+import BuildTool from '../components/icons/BuildTool';
+import Details from '../components/icons/Details';
+import Backend from '../components/icons/Backend';
+import Iteration from '../components/icons/Iteration';
+import Problem from '../components/icons/Problem';
+import WorkSatisfaction from '../components/icons/WorkSatisfaction';
 
 const AboutSection = () => (
   <section className="bg-white pt-16 pb-[60px] lg:pb-[125px]" id="about">
@@ -27,8 +36,24 @@ const AboutSection = () => (
     </div>
 
     {/* Full-width Circular Gallery */}
-    <div className="-mt-8 relative w-full h-[300px] md:h-[350px] lg:h-[400px] overflow-hidden">
-      <CircularGallery bend={2} textColor="#1a1a1a" borderRadius={0.05} scrollEase={0.02} />
+    <div className="-mt-8 relative w-full h-[400px] md:h-[450px] lg:h-[550px] overflow-hidden">
+      <CircularGallery 
+        bend={2} 
+        textColor="#ffffff" 
+        borderRadius={0.05} 
+        scrollEase={0.02}
+        items={[
+          { text: 'Breaking Things', icon: Hammer, description: ['I like taking complex systems', 'apart until they feel', 'simple and logical'] },
+          { text: 'Learning Style', icon: MindSpace, description: ['I don’t move on until I truly', 'understand how something', 'works underneath'] },
+          { text: 'Building Habit', icon: BuildTool, description: ['I prefer creating real projects', 'over just consuming', 'tutorials'] },
+          { text: 'Backend Curiosity', icon: Backend, description: ['I’m always interested in', 'what happens behind', 'the UI'] },
+          { text: 'Iteration Loop', icon: Iteration, description: ['I keep refining things until', 'they feel clean', 'and reliable'] },
+          { text: 'Problem First', icon: Problem, description: ['I focus more on solving', 'the problem than chasing', 'tools or trends'] },
+          { text: 'Work Satisfaction', icon: WorkSatisfaction, description: ['The best part is seeing', 'something I built actually', 'work in real use'] },
+          { text: 'Detail Oriented', icon: Details, description: ['I notice small things early', 'so they don’t become', 'big problems later'] },
+          { text: 'System View', icon: MindMap, description: ['I try to see how everything', 'connects, not just the', 'part I’m building'] }
+        ]}
+      />
     </div>
   </section>
 );
