@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import projects from '../data/projects';
 import PortfolioCard from '../components/PortfolioCard';
 import SectionTitle from '../components/SectionTitle';
@@ -8,6 +8,7 @@ const PortfolioSection = () => {
   const [categories, setCategories] = useState([]);
   const [activeFilter, setActiveFilter] = useState('*');
   const [filtered, setFiltered] = useState(projects);
+  const [hoveredId, setHoveredId] = useState(null);
   
   // State for smooth tab position
   const [position, setPosition] = useState({
@@ -56,74 +57,90 @@ const PortfolioSection = () => {
   }, [categories, activeFilter]);
 
   return (
-    <section className="bg-[#0a0a0a] pt-8 pb-10 lg:pt-12 lg:pb-16" id="portfolio">
-      <div className="container">
-        <SectionTitle title="Projects" className="mb-2" isLight={true} />
-
-        {/* Smooth Sliding Filter Tabs */}
-        <div className="mb-6 flex justify-center lg:justify-start">
-          <ul
-            onMouseLeave={() => {
-              // Reset to active filter position
-              const allTabs = ['All', ...categories];
-              const currentIndex = activeFilter === '*' ? 0 : allTabs.indexOf(activeFilter);
-              const selectedTab = tabsRef.current[currentIndex];
-              if (selectedTab) {
-                const { width } = selectedTab.getBoundingClientRect();
-                setPosition({
-                  left: selectedTab.offsetLeft,
-                  width,
-                  opacity: 1,
-                });
-              }
-            }}
-            className="relative flex w-fit rounded-full border border-white/10 bg-neutral-900/50 p-1 shadow-sm"
-          >
-            {/* "All" Tab */}
-            <Tab
-              ref={(el) => (tabsRef.current[0] = el)}
-              setPosition={setPosition}
-              onClick={() => handleFilter('*', 0)}
-              isActive={activeFilter === '*'}
-            >
-              All
-            </Tab>
-
-            {/* Category Tabs */}
-            {categories.map((cat, i) => (
-              <Tab
-                key={cat}
-                ref={(el) => (tabsRef.current[i + 1] = el)}
-                setPosition={setPosition}
-                onClick={() => handleFilter(cat, i + 1)}
-                isActive={activeFilter === cat}
-              >
-                {cat}
-              </Tab>
-            ))}
-
-            <Cursor position={position} />
-          </ul>
-        </div>
-
-        {/* Expected Grid: 3 columns */}
-        <motion.div 
-          layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+    <section 
+      className="bg-[#0a0a0a] pt-8 pb-20 lg:pt-12 lg:pb-32 relative overflow-visible" 
+      id="portfolio"
+    >
+      <div className="container relative z-10">
+        {/* Blurrable Header */}
+        <motion.div
+          animate={{ filter: hoveredId ? 'blur(10px)' : 'blur(0px)', opacity: hoveredId ? 0.6 : 1 }}
+          transition={{ duration: 0.8 }}
         >
+          <SectionTitle title="Projects" className="mb-2" isLight={true} />
+
+          {/* Smooth Sliding Filter Tabs */}
+          <div className="mb-12 flex justify-center lg:justify-start">
+            <ul
+              onMouseLeave={() => {
+                // Reset to active filter position
+                const allTabs = ['All', ...categories];
+                const currentIndex = activeFilter === '*' ? 0 : allTabs.indexOf(activeFilter);
+                const selectedTab = tabsRef.current[currentIndex];
+                if (selectedTab) {
+                  const { width } = selectedTab.getBoundingClientRect();
+                  setPosition({
+                    left: selectedTab.offsetLeft,
+                    width,
+                    opacity: 1,
+                  });
+                }
+              }}
+              className="relative flex w-fit rounded-full border border-white/10 bg-neutral-900/50 p-1 shadow-sm"
+            >
+              {/* "All" Tab */}
+              <Tab
+                ref={(el) => (tabsRef.current[0] = el)}
+                setPosition={setPosition}
+                onClick={() => handleFilter('*', 0)}
+                isActive={activeFilter === '*'}
+              >
+                All
+              </Tab>
+
+              {/* Category Tabs */}
+              {categories.map((cat, i) => (
+                <Tab
+                  key={cat}
+                  ref={(el) => (tabsRef.current[i + 1] = el)}
+                  setPosition={setPosition}
+                  onClick={() => handleFilter(cat, i + 1)}
+                  isActive={activeFilter === cat}
+                >
+                  {cat}
+                </Tab>
+              ))}
+
+              <Cursor position={position} />
+            </ul>
+          </div>
+        </motion.div>
+
+        {/* Project Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 relative">
           {filtered.map((project) => (
             <motion.div
-              layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.3 }}
               key={project.id}
+              onMouseEnter={() => setHoveredId(project.id)}
+              onMouseLeave={() => setHoveredId(null)}
+              animate={{ 
+                filter: hoveredId && hoveredId !== project.id ? 'blur(10px)' : 'blur(0px)',
+                opacity: hoveredId && hoveredId !== project.id ? 0.4 : 1,
+                scale: hoveredId && hoveredId !== project.id ? 0.95 : 1
+              }}
+              transition={{ duration: 0.8 }}
+              className="relative"
+              style={{ 
+                zIndex: hoveredId === project.id ? 100 : 1,
+              }}
             >
-              <PortfolioCard {...project} />
+              <PortfolioCard 
+                {...project} 
+                isExpanded={hoveredId === project.id}
+              />
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

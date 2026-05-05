@@ -1,50 +1,74 @@
 import React from 'react';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import { FaGithub } from 'react-icons/fa';
 
-const PortfolioCard = ({ title, subtitle, thumb, tech, githubLink }) => {
+const PortfolioCard = ({ id, title, subtitle, thumb, tech, githubLink, isExpanded }) => {
+  const transition = { duration: 1.2, ease: [0.43, 0.13, 0.23, 0.96] };
+
   return (
-    <div className="flex justify-center py-6">
+    <motion.div 
+      initial={false}
+      animate={{ 
+        scale: isExpanded ? 1.6 : 1,
+        y: isExpanded ? -20 : 0,
+      }}
+      transition={transition}
+      className="relative flex justify-center py-6"
+    >
       <div 
-        className="relative w-[280px] h-[380px] bg-white rounded-lg shadow-[0_10px_25px_rgba(0,0,0,0.1)] border border-gray-100 flex items-center justify-center text-center p-6 transition-all duration-500"
+        className="relative w-[280px] h-[380px] bg-white rounded-lg shadow-[0_10px_25px_rgba(0,0,0,0.1)] border border-gray-100 flex items-center justify-center text-center p-6"
         style={{ perspective: '2000px', transformStyle: 'preserve-3d' }}
       >
-        {/* Inside Content (Visible when opened) - Monochrome Style */}
-        <div className="flex flex-col items-center justify-center w-full h-full">
-          <h4 className="text-xl font-bold text-black mb-2">{title}</h4>
-          <p className="text-xs text-gray-500 mb-4 uppercase tracking-widest">{subtitle}</p>
-          
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
-            {tech?.map((t) => (
-              <span key={t} className="px-2 py-1 text-[10px] bg-gray-50 text-gray-500 rounded border border-gray-200">
-                {t}
-              </span>
-            ))}
-          </div>
+        {/* Inside Content (Revealed as cover opens) */}
+        <div className="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
+          <motion.div
+            animate={{ opacity: isExpanded ? 1 : 0, x: isExpanded ? 0 : 20 }}
+            transition={transition}
+            className="flex flex-col items-center"
+          >
+            <h4 className="text-xl font-black text-black mb-1 uppercase tracking-tighter">{title}</h4>
+            <p className="text-[10px] text-gray-400 mb-6 uppercase tracking-[0.2em] font-bold">{subtitle}</p>
+            
+            <div className="flex flex-wrap justify-center gap-1.5 mb-6 max-w-[200px]">
+              {tech?.slice(0, 4).map((t) => (
+                <span key={t} className="px-2 py-0.5 text-[9px] font-bold bg-neutral-100 text-neutral-500 rounded-full border border-neutral-200 uppercase">
+                  {t}
+                </span>
+              ))}
+            </div>
 
-          {githubLink && (
-            <a
-              href={githubLink}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-2 text-xs font-bold text-black border-b border-black pb-0.5 hover:opacity-60 transition-opacity"
-            >
-              <FaGithub /> VIEW PROJECT
-            </a>
-          )}
+            <div className="h-px w-12 bg-neutral-100 mb-6" />
+
+            {githubLink && (
+              <a
+                href={githubLink}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 text-[10px] font-black text-black border-b-2 border-black pb-0.5 hover:opacity-60 transition-opacity uppercase tracking-widest"
+              >
+                <FaGithub size={14} /> View Project
+              </a>
+            )}
+          </motion.div>
         </div>
 
         {/* Cover (Opens on hover) - Premium Steel Blue Notebook Style */}
-        <div 
-          className="absolute inset-0 w-full h-full bg-[#002029] rounded-lg cursor-pointer transition-all duration-[1200ms] origin-left shadow-[8px_8px_25px_rgba(0,0,0,0.6)] z-10 hover-book-cover overflow-visible border border-white/10"
+        <motion.div 
+          animate={{ 
+            rotateY: isExpanded ? -120 : 0,
+          }}
+          transition={transition}
+          className="absolute inset-0 w-full h-full bg-[#002029] rounded-lg cursor-pointer origin-left shadow-[8px_8px_25px_rgba(0,0,0,0.6)] z-10 overflow-visible border border-white/10"
           style={{ 
             backfaceVisibility: 'hidden',
+            transformStyle: 'preserve-3d'
           }}
         >
           {/* Notebook Spine Hinge */}
           <div className="absolute left-0 top-0 bottom-0 w-8 bg-black/20 border-r border-white/10 z-30" />
           <div className="absolute left-7 top-0 bottom-0 w-[1px] bg-white/10 z-30" />
 
-          {/* Hardcover Texture/Image (Very Subtle) */}
+          {/* Hardcover Texture/Image */}
           <div className="absolute inset-0 w-full h-full overflow-hidden rounded-lg">
             <img 
               src={thumb} 
@@ -52,14 +76,13 @@ const PortfolioCard = ({ title, subtitle, thumb, tech, githubLink }) => {
               className="w-full h-full object-cover grayscale opacity-10 contrast-150 brightness-75 mix-blend-overlay" 
               loading="lazy"
             />
-            {/* Matte finish overlay */}
             <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-white/5 to-transparent opacity-40" />
           </div>
 
-          {/* Elastic Band Detail (Moved to right) */}
+          {/* Elastic Band Detail */}
           <div className="absolute right-4 top-0 bottom-0 w-3 bg-[#1a1a1a] shadow-[inset_1px_0_2px_rgba(255,255,255,0.1),2px_0_5px_rgba(0,0,0,0.4)] z-40 opacity-80" />
 
-          {/* Ribbon Bookmark Detail (Sticking out the bottom) */}
+          {/* Ribbon Bookmark Detail */}
           <div className="absolute left-12 -bottom-4 w-4 h-8 bg-[#1a1a1a] shadow-md z-0 rounded-b-sm origin-top transform rotate-3" />
           
           {/* Debossed Label/Title */}
@@ -69,15 +92,9 @@ const PortfolioCard = ({ title, subtitle, thumb, tech, githubLink }) => {
             </h3>
             <div className="mt-2 h-[1px] w-6 bg-white/30" />
           </div>
-        </div>
+        </motion.div>
       </div>
-
-      <style jsx="true">{`
-        .flex:hover .hover-book-cover {
-          transform: rotateY(-110deg);
-        }
-      `}</style>
-    </div>
+    </motion.div>
   );
 }
 
