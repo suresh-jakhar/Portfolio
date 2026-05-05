@@ -19,8 +19,8 @@ const PortfolioSection = () => {
   const tabsRef = useRef([]);
 
   useEffect(() => {
-    const allCats = [...new Set(projects.flatMap((p) => p.categories))];
-    setCategories(allCats);
+    // Explicitly set categories in the order requested by user
+    setCategories(['AI-ML', 'Web', 'Data Analysis']);
   }, []);
 
   const handleFilter = (cat, index) => {
@@ -107,11 +107,23 @@ const PortfolioSection = () => {
         </div>
 
         {/* Expected Grid: 3 columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <motion.div 
+          layout
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+        >
           {filtered.map((project) => (
-            <PortfolioCard key={project.id} {...project} />
+            <motion.div
+              layout
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.3 }}
+              key={project.id}
+            >
+              <PortfolioCard {...project} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
