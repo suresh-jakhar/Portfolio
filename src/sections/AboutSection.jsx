@@ -11,25 +11,45 @@ import Iteration from '../components/icons/Iteration';
 import Problem from '../components/icons/Problem';
 import WorkSatisfaction from '../components/icons/WorkSatisfaction';
 
+import DecayCard from '../components/DecayCard';
+import awsCert from '../assets/images/aws_ml_associate.png';
+
 const AboutSection = () => (
-  <section className="bg-[#0a0a0a] pt-4 pb-0 text-white" id="about">
-    <div className="container">
+  <section className="bg-[#0a0a0a] pt-4 pb-0 text-white overflow-hidden" id="about">
+    <div className="container px-4 sm:px-6 lg:px-8 max-w-[1400px]">
       {/* Bio section */}
-      <div className="md:grid grid-cols-12 items-center">
-        {/* Centered bio */}
-        <div className="col-span-12 lg:col-span-10 lg:col-start-2">
+      <div className="md:grid grid-cols-12 items-center gap-8 lg:gap-16">
+        {/* Bio Text - Shifted Left */}
+        <div className="col-span-12 lg:col-span-7 lg:col-start-1">
           <div className="bio mt-5 sm:mt-10 md:mt-0">
             {/* Desktop title */}
-            <SectionTitle title="About Me" className="hidden lg:block" isLight={true} />
+            <SectionTitle title="About Me" className="hidden lg:block mb-6" isLight={true} />
 
-            <div className="bio-text space-y-4 text-gray-300 leading-relaxed text-center lg:text-left">
-              <p>
+            <div className="bio-text space-y-6 text-gray-300 leading-relaxed text-center lg:text-left">
+              <p className="text-lg md:text-xl font-medium">
                 As a Software Engineer, my interests include the development of highly scalable web applications and machine learning-based software systems. My skills span from designing highly optimized back-end APIs and databases to developing front-end UIs
               </p>
-              <p>
+              <p className="text-base md:text-lg opacity-80">
                 I am currently enrolled in B.Tech in Computer Science Engineering and have experience with cutting-edge web technologies and application-based software solutions.
               </p>
             </div>
+          </div>
+        </div>
+
+        {/* Right Section - AWS Certificate with Decay Effect */}
+        <div className="col-span-12 lg:col-span-5 flex justify-center lg:justify-end mt-12 lg:mt-0">
+          <div className="relative group">
+            {/* Glow effect background */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            
+            <DecayCard 
+              width={280} 
+              height={180} 
+              image={awsCert}
+              baseFrequency={0.015}
+              numOctaves={6}
+              maxDisplacement={200}
+            />
           </div>
         </div>
       </div>
