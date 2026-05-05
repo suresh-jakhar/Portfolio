@@ -21,7 +21,7 @@ const PortfolioSection = () => {
 
   useEffect(() => {
     // Explicitly set categories in the order requested by user
-    setCategories(['AI-ML', 'Web', 'Data Analysis']);
+    setCategories(['Full Stack', 'AI-ML', 'Data Analysis']);
   }, []);
 
   const handleFilter = (cat, index) => {
@@ -61,7 +61,7 @@ const PortfolioSection = () => {
       className="bg-[#0a0a0a] pt-8 pb-20 lg:pt-12 lg:pb-32 relative overflow-visible" 
       id="portfolio"
     >
-      <div className="container relative z-10">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-12 relative z-10">
         {/* Blurrable Header */}
         <motion.div
           animate={{ filter: hoveredId ? 'blur(10px)' : 'blur(0px)', opacity: hoveredId ? 0.6 : 1 }}
@@ -117,12 +117,10 @@ const PortfolioSection = () => {
         </motion.div>
 
         {/* Project Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 relative">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16 relative">
           {filtered.map((project) => (
             <motion.div
               key={project.id}
-              onMouseEnter={() => setHoveredId(project.id)}
-              onMouseLeave={() => setHoveredId(null)}
               animate={{ 
                 filter: hoveredId && hoveredId !== project.id ? 'blur(10px)' : 'blur(0px)',
                 opacity: hoveredId && hoveredId !== project.id ? 0.4 : 1,
@@ -137,6 +135,7 @@ const PortfolioSection = () => {
               <PortfolioCard 
                 {...project} 
                 isExpanded={hoveredId === project.id}
+                setHoveredId={setHoveredId}
               />
             </motion.div>
           ))}
