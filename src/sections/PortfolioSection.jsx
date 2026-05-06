@@ -23,7 +23,7 @@ const PortfolioSection = () => {
 
   useEffect(() => {
     // Explicitly set categories in the order requested by user
-    setCategories(['Full Stack', 'AI-ML', 'Data Analysis']);
+    setCategories(['Web', 'AI-ML', 'Data Analysis']);
     
     // Check mobile view
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -127,7 +127,7 @@ const PortfolioSection = () => {
 
         {/* Project Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16 relative">
-          {(isMobile && !showAll ? filtered.slice(0, 3) : filtered).map((project) => (
+          {(!showAll ? filtered.slice(0, 3) : filtered).map((project) => (
             <motion.div
               key={project.id}
               animate={{ 
@@ -150,8 +150,8 @@ const PortfolioSection = () => {
           ))}
         </div>
 
-        {/* Load More Button (Mobile Only) */}
-        {isMobile && filtered.length > 3 && (
+        {/* Load More Button */}
+        {filtered.length > 3 && (
           <div className="mt-12 flex justify-center">
             <button
               onClick={() => setShowAll(!showAll)}

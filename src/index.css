@@ -158,60 +158,139 @@
   }
 
   /* Portfolio Section */
+  #portfolio {
+    padding-bottom: 2rem !important;
+  }
   #portfolio .grid-cols-1 {
     display: flex !important;
     flex-direction: column !important;
     gap: 2rem !important;
   }
+  #portfolio .mb-12.flex {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    justify-content: flex-start !important;
+    scrollbar-width: none;
+  }
+  #portfolio .mb-12.flex::-webkit-scrollbar {
+    display: none;
+  }
   #portfolio .relative.flex.w-fit {
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    row-gap: 0.5rem !important;
-    column-gap: 0 !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    width: max-content !important;
+    max-width: none !important;
+    overflow: visible !important;
+    flex-shrink: 0 !important;
   }
   #portfolio li.text-\[11px\] {
     font-size: 10px !important;
     padding: 0.5rem 0.75rem !important;
     text-align: center !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
   }
 
   /* Skills & Education Section */
+  #education {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
   #education .flex-col.lg\:flex-row {
     flex-direction: column !important;
-    gap: 1.5rem !important;
+    gap: 1rem !important;
   }
   #education .w-full.lg\:w-\[280px\] {
     width: 100% !important;
-    max-width: 350px !important;
+    max-width: 300px !important;
     margin: 0 auto !important;
   }
   #education .hidden.lg\:flex {
     display: none !important;
   }
-  /* Skill tags wrapping fix */
-  #education ul.flex {
-    justify-content: center !important;
-    gap: 0.5rem !important;
+  /* Compact Education Cards */
+  #education .relative.p-6 {
+    padding: 0.75rem 1rem !important;
+  }
+  #education .w-12.h-12 {
+    display: none !important; /* Hide icon to save vertical space */
+  }
+  #education .mb-4 {
+    margin-bottom: 0.25rem !important;
+  }
+  #education h4 {
+    font-size: 0.8rem !important;
+    margin-bottom: 0.15rem !important;
+  }
+  #education p.text-xs {
+    font-size: 0.6rem !important;
+    line-height: 1.2 !important;
+  }
+  #education .mt-2.pt-3 {
+    margin-top: 0.25rem !important;
+    padding-top: 0.25rem !important;
+  }
+  #education span.text-lg {
+    font-size: 0.75rem !important;
+  }
+  /* Compact Skills Cards */
+  #education .flex.flex-col.gap-6.mt-12 {
+    gap: 0.75rem !important;
+    margin-top: 1.5rem !important;
   }
   #education .bg-\[\#111\] {
+    padding: 1rem !important;
     flex-direction: column !important;
     text-align: center !important;
     align-items: center !important;
+    gap: 0.5rem !important;
   }
   #education .md\:w-1\/4 {
     width: 100% !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  #education h3.text-xs {
+    font-size: 0.65rem !important;
+    letter-spacing: 0.2em !important;
+    margin-bottom: 0.25rem !important;
+  }
+  #education ul.flex {
+    justify-content: center !important;
+    gap: 0.35rem !important;
+  }
+  #education li.px-4.py-2 {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.6rem !important;
   }
 
   /* Achievements Section */
+  #achievements {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  #achievements ul.space-y-6 > li {
+    margin-top: 0.5rem !important;
+  }
   #achievements .flex.items-start {
-    flex-direction: column !important;
+    flex-direction: row !important;
     align-items: center !important;
-    text-align: center !important;
-    gap: 1rem !important;
+    text-align: left !important;
+    gap: 0.75rem !important;
+    padding: 0.75rem 1rem !important;
+  }
+  #achievements .bg-white\/5.p-3 {
+    padding: 0.5rem !important;
+  }
+  #achievements .text-2xl {
+    font-size: 1rem !important;
+  }
+  #achievements .text-lg.font-bold, #achievements span.text-lg.font-bold {
+    font-size: 0.8rem !important;
+    line-height: 1.3 !important;
   }
   
   /* Quote Section */

@@ -3,7 +3,7 @@ const projects = [
     id: 1,
     title: 'Quitio',
     subtitle: 'Graph-Based Content Clustering & Retrieval System',
-    categories: ['Full Stack', 'AI-ML'],
+    categories: ['Web', 'AI-ML'],
     tech: ['Python', 'FastAPI', 'LangChain', 'Sentence Transformers', 'NetworkX', 'pgvector', 'React', 'Node.js'],
     points: [
       'Built a system to organize content (docs, notes, links) into connected topics using sentence embeddings',
@@ -37,7 +37,7 @@ const projects = [
     id: 3,
     title: 'Course-Commons',
     subtitle: 'E-learning Platform',
-    categories: ['Full Stack'],
+    categories: ['Web'],
     tech: ['React', 'Node.js', 'Express', 'MongoDB'],
     points: [
       'Built a full-stack platform with separate roles for instructors and learners, supporting course creation, enrollment, and progress tracking',
@@ -53,6 +53,24 @@ const projects = [
   },
   {
     id: 4,
+    title: 'Talk-Time',
+    subtitle: 'Real-Time Multi-Room Chat System',
+    categories: ['Web'],
+    tech: ['React', 'Node.js', 'WebSockets', 'Express', 'PieSocket', 'TypeScript'],
+    points: [
+      'Built a full-stack real-time chat app using React, Node.js, and WebSockets for low-latency bidirectional messaging',
+      'Implemented multi-room architecture with live participant synchronization and persistence',
+      'Developed a "Registry Room" pattern with PieSocket for real-time broadcasting of room occupancy across clients',
+      'Integrated spatial audio and micro-interactions to enhance UX',
+      'Engineered a secure Express backend managing room lifecycles and participant tracking',
+      'Optimized state management with TypeScript for robust handling of message feeds and auto-reconnection'
+    ],
+    thumb: 'https://placehold.co/800x800/1e293b/1e293b',
+    githubLink: 'https://github.com/suresh-jakhar/websocket-chat-application',
+    liveLink: 'https://chat-room-phi-flax.vercel.app/'
+  },
+  {
+    id: 5,
     title: 'AmEx Analysis',
     subtitle: 'Customer Offer Performance Analysis at American Express',
     categories: ['Data Analysis'],
@@ -69,7 +87,7 @@ const projects = [
     liveLink: null
   },
   {
-    id: 5,
+    id: 6,
     title: 'Market Forecasts',
     subtitle: 'Restaurant Seasonality Forecasts',
     categories: ['Data Analysis'],
@@ -84,24 +102,6 @@ const projects = [
     thumb: 'https://placehold.co/800x800/020617/020617',
     githubLink: 'https://github.com/suresh-jakhar/Supply-Chain-Analysis',
     liveLink: null
-  },
-  {
-    id: 6,
-    title: 'Talk-Time',
-    subtitle: 'Real-Time Multi-Room Chat System',
-    categories: ['Full Stack'],
-    tech: ['React', 'Node.js', 'WebSockets', 'Express', 'PieSocket', 'TypeScript'],
-    points: [
-      'Built a full-stack real-time chat app using React, Node.js, and WebSockets for low-latency bidirectional messaging',
-      'Implemented multi-room architecture with live participant synchronization and persistence',
-      'Developed a "Registry Room" pattern with PieSocket for real-time broadcasting of room occupancy across clients',
-      'Integrated spatial audio and micro-interactions to enhance UX',
-      'Engineered a secure Express backend managing room lifecycles and participant tracking',
-      'Optimized state management with TypeScript for robust handling of message feeds and auto-reconnection'
-    ],
-    thumb: 'https://placehold.co/800x800/1e293b/1e293b',
-    githubLink: 'https://github.com/suresh-jakhar/websocket-chat-application',
-    liveLink: 'https://chat-room-phi-flax.vercel.app/'
   }
 ];
 

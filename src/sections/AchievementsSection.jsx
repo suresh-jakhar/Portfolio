@@ -22,10 +22,7 @@ const AchievementsSection = () => (
       <SectionTitle title="Achievements" isLight={true} />
 
       <div className="mt-8 max-w-3xl">
-        <p className="text-gray-400 mb-10 leading-relaxed">
-          Throughout my academic and professional journey, I've focused on continuous learning and excellence. 
-          Here are some of the key certifications and awards I've earned.
-        </p>
+        
 
         <ul className="space-y-6">
           {awards.map((award) => (
@@ -46,9 +43,6 @@ const AchievementsSection = () => (
                 ) : (
                   <span className="text-lg font-bold text-white block">{award.title}</span>
                 )}
-                <span className="text-sm text-gray-500 uppercase tracking-widest mt-1 block">
-                  Credential / Honor
-                </span>
               </div>
             </li>
           ))}
