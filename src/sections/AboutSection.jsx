@@ -29,7 +29,7 @@ const AboutSection = () => (
               <p className="text-lg md:text-xl font-medium">
                 As a Software Engineer, my interests include the development of highly scalable web applications and machine learning-based software systems. My skills span from designing highly optimized back-end APIs and databases to developing front-end UIs
               </p>
-              <p className="text-base md:text-lg opacity-80">
+              <p className="hidden md:block text-base md:text-lg opacity-80">
                 I am currently enrolled in B.Tech in Computer Science Engineering and have experience with cutting-edge web technologies and application-based software solutions.
               </p>
             </div>

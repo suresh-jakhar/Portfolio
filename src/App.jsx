@@ -7,7 +7,7 @@ import AboutSection from './sections/AboutSection';
 import PortfolioSection from './sections/PortfolioSection';
 import SkillsSection from './sections/SkillsSection';
 import AchievementsSection from './sections/AchievementsSection';
-import Quote from './components/Quote';
+
 import ContactSection from './sections/ContactSection';
 
 const App = () => {
@@ -27,7 +27,7 @@ const App = () => {
       <PortfolioSection />
       <SkillsSection />
       <AchievementsSection />
-      <Quote />
+
       <ContactSection />
       <Toaster position="bottom-right" />
     </div>

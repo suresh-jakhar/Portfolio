@@ -9,6 +9,8 @@ const PortfolioSection = () => {
   const [activeFilter, setActiveFilter] = useState('*');
   const [filtered, setFiltered] = useState(projects);
   const [hoveredId, setHoveredId] = useState(null);
+  const [showAll, setShowAll] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   
   // State for smooth tab position
   const [position, setPosition] = useState({
@@ -22,11 +24,18 @@ const PortfolioSection = () => {
   useEffect(() => {
     // Explicitly set categories in the order requested by user
     setCategories(['Full Stack', 'AI-ML', 'Data Analysis']);
+    
+    // Check mobile view
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const handleFilter = (cat, index) => {
     setActiveFilter(cat);
     setFiltered(cat === '*' ? projects : projects.filter((p) => p.categories.includes(cat)));
+    setShowAll(false); // Reset load more state when filtering
     
     // Update cursor position immediately on click
     const selectedTab = tabsRef.current[index];
@@ -118,7 +127,7 @@ const PortfolioSection = () => {
 
         {/* Project Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16 relative">
-          {filtered.map((project) => (
+          {(isMobile && !showAll ? filtered.slice(0, 3) : filtered).map((project) => (
             <motion.div
               key={project.id}
               animate={{ 
@@ -140,6 +149,26 @@ const PortfolioSection = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Load More Button (Mobile Only) */}
+        {isMobile && filtered.length > 3 && (
+          <div className="mt-12 flex justify-center">
+            <button
+              onClick={() => setShowAll(!showAll)}
+              className="flex items-center gap-2 px-6 py-3 border border-white/20 rounded-full text-white text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors"
+            >
+              {showAll ? 'Show Less' : 'Load More'}
+              <svg 
+                className={`w-3 h-3 transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

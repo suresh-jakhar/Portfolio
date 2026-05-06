@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub } from 'react-icons/fa';
 
 const PortfolioCard = ({ id, title, subtitle, thumb, tech, githubLink, points, liveLink, isExpanded, setHoveredId }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const transition = { duration: 1.2, ease: [0.43, 0.13, 0.23, 0.96] };
+  const targetScale = isExpanded ? (isMobile ? 1.05 : 1.6) : 1;
 
   return (
     <motion.div 
       initial={false}
       animate={{ 
-        scale: isExpanded ? 1.6 : 1,
-        y: isExpanded ? -20 : 0,
+        scale: targetScale,
+        y: isExpanded ? -10 : 0,
       }}
       transition={transition}
       className="relative flex justify-center py-6"
