@@ -101,7 +101,7 @@ const Navbar = () => {
           {/* Mobile nav */}
           <nav
             className={`bg-black/90 overflow-hidden duration-300 sm:hidden ${
-              menuOpen ? 'mt-3 h-[200px]' : 'mt-0 h-0'
+              menuOpen ? 'mt-3 h-[260px]' : 'mt-0 h-0'
             }`}
           >
             <ul className="nav p-2">
