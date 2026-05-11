@@ -18,6 +18,23 @@ const projects = [
   },
   {
     id: 2,
+    title: 'Finance Agent',
+    subtitle: 'Finance Email Follow-up Agent',
+    categories: ['AI-ML'],
+    tech: ['Python', 'LangChain', 'LangGraph', 'LLM', 'APScheduler', 'Streamlit'],
+    points: [
+      'Built an agent to automate invoice follow-ups using a 5-stage escalation workflow based on overdue duration',
+      'Developed a deterministic processing pipeline using LangGraph and Python orchestration to process invoices sequentially without skips',
+      'Integrated Groq LLaMA 3.1 LLM for generating personalized collection emails with structured prompt templates and validation checks',
+      'Implemented security guardrails including regex-based prompt sanitization, PII masking, and output validation',
+      'Built automated scheduling workflows using APScheduler and developed a Streamlit dashboard for monitoring invoice aging and audit logs'
+    ],
+    thumb: 'https://placehold.co/800x800/0f172a/0f172a',
+    githubLink: 'https://github.com/suresh-jakhar/finance-email-followup-agent',
+    liveLink: null
+  },
+  {
+    id: 3,
     title: 'Machine Translation',
     subtitle: 'Transformer-based English–French Translator',
     categories: ['AI-ML'],
@@ -34,7 +51,7 @@ const projects = [
     liveLink: 'https://huggingface.co/spaces/sureshjakhar/seq2seq-neural-machine-translation'
   },
   {
-    id: 3,
+    id: 4,
     title: 'Course-Commons',
     subtitle: 'E-learning Platform',
     categories: ['Web'],
@@ -52,7 +69,7 @@ const projects = [
     liveLink: null
   },
   {
-    id: 4,
+    id: 5,
     title: 'Talk-Time',
     subtitle: 'Real-Time Multi-Room Chat System',
     categories: ['Web'],
@@ -70,7 +87,7 @@ const projects = [
     liveLink: 'https://chat-room-phi-flax.vercel.app/'
   },
   {
-    id: 5,
+    id: 6,
     title: 'AmEx Analysis',
     subtitle: 'Customer Offer Performance Analysis at American Express',
     categories: ['Data Analysis'],
@@ -87,7 +104,7 @@ const projects = [
     liveLink: null
   },
   {
-    id: 6,
+    id: 7,
     title: 'Market Forecasts',
     subtitle: 'Restaurant Seasonality Forecasts',
     categories: ['Data Analysis'],
