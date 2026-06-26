@@ -1,36 +1,34 @@
 const projects = [
   {
     id: 1,
-    title: 'Quitio',
-    subtitle: 'Graph-Based Content Clustering & Retrieval System',
+    title: 'Jaktra',
+    subtitle: 'AI-Powered Credit Operations & Accounts Receivable Platform',
     categories: ['Web', 'AI-ML'],
-    tech: ['Python', 'FastAPI', 'LangChain', 'Sentence Transformers', 'NetworkX', 'pgvector', 'React', 'Node.js'],
+    tech: ['React', 'Node.js', 'Express', 'FastAPI', 'PostgreSQL', 'LangChain', 'LangGraph', 'Razorpay'],
     points: [
-      'Built a system to organize content (docs, notes, links) into connected topics using sentence embeddings',
-      'Constructed a similarity-based graph (embeddings + metadata) and used Louvain clustering to group related content',
-      'Combined vector search (pgvector) with BM25 keyword search for improved retrieval',
-      'Developed a RAG-based query engine using LangChain with semantic similarity and multi-hop graph traversal',
-      'Represented content as a knowledge graph and applied PageRank to identify important topics'
+      'Engineered a multi-tenant SaaS (React, Express, FastAPI, Postgres) with OAuth/JWT and RBAC, securing data isolation across client orgs.',
+      'Designed AI engine (LangChain/LangGraph) generating tone-appropriate email, SMS, and WhatsApp reminders for 50+ concurrent invoices.',
+      'Integrated Razorpay gateway with webhook-based reconciliation, achieving automated exactly-once payment processing.',
+      'Trained Gradient Boosting risk model on 5,000+ samples to predict default probability, prioritizing accounts via AUC evaluation.'
     ],
-    thumb: 'https://placehold.co/800x800/1a1a2e/1a1a2e',
-    githubLink: 'https://github.com/suresh-jakhar/Quitio',
+    thumb: 'https://placehold.co/800x800/0f172a/0f172a',
+    githubLink: 'https://github.com/Jaktra-org/Jaktra',
     liveLink: null
   },
   {
     id: 2,
-    title: 'Finance Agent',
-    subtitle: 'Finance Email Follow-up Agent',
-    categories: ['AI-ML'],
-    tech: ['Python', 'LangChain', 'LangGraph', 'LLM', 'APScheduler', 'Streamlit'],
+    title: 'Quitio',
+    subtitle: 'Graph-Based Content Clustering & Retrieval System',
+    categories: ['Web', 'AI-ML'],
+    tech: ['React', 'Node.js', 'Express', 'FastAPI', 'PostgreSQL', 'pgvector', 'LangChain', 'NetworkX'],
     points: [
-      'Built an agent to automate invoice follow-ups using a 5-stage escalation workflow based on overdue duration',
-      'Developed a deterministic processing pipeline using LangGraph and Python orchestration to process invoices sequentially without skips',
-      'Integrated Groq LLaMA 3.1 LLM for generating personalized collection emails with structured prompt templates and validation checks',
-      'Implemented security guardrails including regex-based prompt sanitization, PII masking, and output validation',
-      'Built automated scheduling workflows using APScheduler and developed a Streamlit dashboard for monitoring invoice aging and audit logs'
+      'Developed a 3-tier knowledge management platform (React, Node.js/Express, FastAPI) supporting PDF, DOCX, and web-link ingestion with automated NLP-based title generation.',
+      'Engineered a Retrieval-Augmented Generation pipeline with citation tracking and confidence scoring across a 5-stage workflow, lowering response hallucination risk.',
+      'Architected a semantic search engine combining HNSW-indexed pgvector similarity with keyword search, delivering 4 distinct search modes including hybrid retrieval.',
+      'Designed an ML clustering engine using Louvain community detection and LLM-driven labeling to auto-organize content into thematic clusters via PageRank scoring.'
     ],
-    thumb: 'https://placehold.co/800x800/0f172a/0f172a',
-    githubLink: 'https://github.com/suresh-jakhar/finance-email-followup-agent',
+    thumb: 'https://placehold.co/800x800/1a1a2e/1a1a2e',
+    githubLink: 'https://github.com/Quitio-org/Quitio',
     liveLink: null
   },
   {

@@ -3,15 +3,15 @@ import { BsAwardFill } from 'react-icons/bs';
 
 const awards = [
   {
-    title: 'AWS Certified Machine Learning Engineer — Associate',
-    link: 'https://www.credly.com/badges/b60c0951-deaa-4551-ba0b-9d92211d5aff/public_url',
+    title: 'AWS Certified Machine Learning Engineer — Associate (Score: 969/1000)',
+    link: 'https://www.credly.com/users/suresh-jakhar',
   },
   {
-    title: 'IBM Statistics for Data Science with Python',
-    link: 'https://www.credly.com/badges/fecb0725-c78b-4588-a66c-084c566877f3/public_url',
+    title: 'Open-Source Contributions — Merged a React rendering fix to github.com/kubetail-org and added UI component test coverage to github.com/shep-ai.',
+    link: 'https://github.com/kubetail-org',
   },
   {
-    title: 'First Rank in Senior Secondary at District Level',
+    title: 'District First Rank — Senior Secondary (Class XII) board examination.',
     link: null,
   },
 ];

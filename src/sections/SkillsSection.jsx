@@ -12,16 +12,16 @@ const education = [
     status: 'COMPLETED'
   },
   {
-    degree: 'Senior Secondary Education',
-    school: 'Jpp jain international school',
+    degree: 'Senior Secondary (Class XII)',
+    school: 'JPP Jain International Sr. Sec. School',
     grade: 'Grade : 98.40%',
     year: '2021',
     status: 'COMPLETED'
   },
   {
-    degree: 'B.Tech in Computer Science Engineering',
+    degree: 'B.Tech, Computer Science (Data Science)',
     school: 'Bennett University',
-    grade: 'Grade : 73.10%',
+    grade: 'Grade : 7.5 CGPA',
     year: '2027',
     status: 'EXPECTED'
   }
@@ -30,23 +30,31 @@ const education = [
 const skills = [
   {
     category: 'Languages',
-    items: ['Java', 'Python', 'SQL','JavaScript'],
-    color: 'bg-blue-50 text-blue-700 border-blue-200',
+    items: ['Java (Primary)', 'Python', 'TypeScript/JavaScript', 'SQL'],
   },
   {
-    category: 'Development',
-    items: ['React', 'Node.js', 'Express.js', 'FastAPI', 'REST APIs','Web Sockets'],
-    color: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    category: 'Backend & APIs',
+    items: ['Node.js', 'Express.js', 'FastAPI', 'REST API Design', 'Microservices Architecture', 'OAuth', 'JWT Authentication'],
   },
   {
-    category: 'Machine Learning',
-    items: ['scikit-learn', 'Embeddings', 'NLP', 'RAG', 'LangChain', 'Clustering'],
-    color: 'bg-purple-50 text-purple-700 border-purple-200',
+    category: 'Frontend',
+    items: ['React', 'React Router', 'TanStack Query', 'Vite', 'Tailwind CSS'],
   },
   {
-    category: 'Tools & Infra',
-    items: ['Git', 'AWS', 'PostgreSQL', 'MongoDB', 'pgvector'],
-    color: 'bg-amber-50 text-amber-700 border-amber-200',
+    category: 'Databases',
+    items: ['PostgreSQL', 'pgvector', 'Redis', 'Drizzle ORM', 'Database Schema Design & Migrations'],
+  },
+  {
+    category: 'AI/ML',
+    items: ['PyTorch', 'scikit-learn', 'LangChain', 'LangGraph', 'Sentence-Transformers', 'RAG', 'Embeddings', 'NetworkX'],
+  },
+  {
+    category: 'Cloud & Tools',
+    items: ['AWS', 'Docker', 'Docker Compose', 'Git/GitHub', 'Unit & Integration Testing'],
+  },
+  {
+    category: 'Core CS',
+    items: ['Data Structures & Algorithms', 'OOP', 'System Design', 'DBMS', 'Asynchronous Programming'],
   },
 ];
 
